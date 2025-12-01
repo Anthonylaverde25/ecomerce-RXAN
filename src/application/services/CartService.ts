@@ -5,7 +5,7 @@ import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { CartItem } from '@/domain/entities/CartItem';
 import { Product } from '@/domain/entities/Product';
-import { ICartRepository } from '@/domain/repositories/ICartRepository';
+import type { ICartRepository } from '@/domain/repositories/ICartRepository';
 import { TYPES } from '@/di/types';
 
 @injectable()

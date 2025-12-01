@@ -1,108 +1,62 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
-import { Product } from "@/data/products";
-import { toast } from "sonner";
+import { useEffect, useState } from "react";
+import { useCartStore } from "@/presentation/store/useCartStore";
+import { ReactNode } from "react";
+import { Product as DataProduct } from "@/data/products";
+import { Product as DomainProduct } from "@/domain/entities/Product";
 
-export interface CartItem extends Product {
-  quantity: number;
-}
+// Re-export CartItem for compatibility
+export type { CartItem } from "@/domain/entities/CartItem";
 
-interface CartContextType {
-  items: CartItem[];
-  addItem: (product: Product) => void;
-  removeItem: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
-  clearCart: () => void;
-  total: number;
-  itemCount: number;
-}
-
-const CartContext = createContext<CartContextType | undefined>(undefined);
-
+// Deprecated Provider - just a pass-through now
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-
-  const addItem = (product: Product) => {
-    setItems((currentItems) => {
-      const existingItem = currentItems.find((item) => item.id === product.id);
-      
-      if (existingItem) {
-        toast.success("Cantidad actualizada", {
-          description: `${product.name} (x${existingItem.quantity + 1})`,
-        });
-        return currentItems.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      
-      toast.success("Producto agregado", {
-        description: product.name,
-      });
-      return [...currentItems, { ...product, quantity: 1 }];
-    });
-  };
-
-  const removeItem = (productId: string) => {
-    setItems((currentItems) => {
-      const item = currentItems.find((item) => item.id === productId);
-      if (item) {
-        toast.info("Producto eliminado", {
-          description: item.name,
-        });
-      }
-      return currentItems.filter((item) => item.id !== productId);
-    });
-  };
-
-  const updateQuantity = (productId: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeItem(productId);
-      return;
-    }
-
-    setItems((currentItems) =>
-      currentItems.map((item) =>
-        item.id === productId ? { ...item, quantity } : item
-      )
-    );
-  };
-
-  const clearCart = () => {
-    setItems([]);
-    toast.success("Carrito vaciado");
-  };
-
-  const total = items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-
-  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
-
-  return (
-    <CartContext.Provider
-      value={{
-        items,
-        addItem,
-        removeItem,
-        updateQuantity,
-        clearCart,
-        total,
-        itemCount,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  );
+  return <>{children}</>;
 }
 
 export function useCart() {
-  const context = useContext(CartContext);
-  if (context === undefined) {
-    throw new Error("useCart must be used within a CartProvider");
+  const store = useCartStore();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    useCartStore.persist.rehydrate();
+    setMounted(true);
+  }, []);
+
+  // Calculate derived state
+  const total = store.items.reduce((sum, item) => sum + item.getSubtotal(), 0);
+  const itemCount = store.items.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Adapter for addItem to accept DataProduct
+  const addItem = (product: DataProduct) => {
+    const domainProduct = DomainProduct.fromJSON({
+      ...product,
+      stock: 100, // Default stock for mock data
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    store.addItem(domainProduct);
+  };
+
+  if (!mounted) {
+    return {
+      items: [],
+      addItem: (product: DataProduct) => {},
+      removeItem: () => {},
+      updateQuantity: () => {},
+      clearCart: () => {},
+      total: 0,
+      itemCount: 0,
+    };
   }
-  return context;
+
+  return {
+    items: store.items,
+    addItem,
+    removeItem: store.removeItem,
+    updateQuantity: store.updateQuantity,
+    clearCart: store.clearCart,
+    total,
+    itemCount,
+  };
 }

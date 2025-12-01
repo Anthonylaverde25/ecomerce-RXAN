@@ -4,7 +4,7 @@
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { Product } from '@/domain/entities/Product';
-import { IProductRepository, ProductFilters } from '@/domain/repositories/IProductRepository';
+import type { IProductRepository, ProductFilters } from '@/domain/repositories/IProductRepository';
 import { TYPES } from '@/di/types';
 
 @injectable()

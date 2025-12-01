@@ -6,6 +6,7 @@ import { Product } from './Product';
 export interface CartItemProps {
   productId: string;
   name: string;
+  slug: string;
   price: number;
   image: string;
   category: string;
@@ -23,12 +24,20 @@ export class CartItem {
   }
 
   // Getters
+  get id(): string {
+    return this.props.productId;
+  }
+
   get productId(): string {
     return this.props.productId;
   }
 
   get name(): string {
     return this.props.name;
+  }
+
+  get slug(): string {
+    return this.props.slug;
   }
 
   get price(): number {
@@ -97,6 +106,7 @@ export class CartItem {
     return new CartItem({
       productId: product.id,
       name: product.name,
+      slug: product.slug,
       price: product.price,
       image: product.image,
       category: product.category,

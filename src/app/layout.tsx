@@ -34,14 +34,12 @@ export default function RootLayout({
       </head>
       <body className={`${epilogue.variable} font-display antialiased bg-background-light text-text-light`}>
         <ThemeRegistry>
-          <CartProvider>
-            <Header />
-            <main className="pt-16 min-h-screen">
-              {children}
-            </main>
-            <Footer />
-            <Toaster position="top-right" richColors />
-          </CartProvider>
+          <Header />
+          <main className="pt-16 min-h-screen">
+            {children}
+          </main>
+          <Footer />
+          <Toaster position="top-right" richColors />
         </ThemeRegistry>
       </body>
     </html>
