@@ -7,6 +7,7 @@ import { products } from "@/data/products";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { useState } from "react";
 
 export default function CheckoutPage() {
@@ -35,9 +36,13 @@ export default function CheckoutPage() {
   const recommendedProducts = products.slice(0, 4);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background-light">
-
-      <main className="flex-1 pt-24 pb-16 px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto w-full">
+    <>
+      <div className="pb-16 px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto w-full">
+        {/* Breadcrumbs */}
+        <div className="mb-4">
+          <Breadcrumbs items={[{ label: "Carrito" }]} />
+        </div>
+        
         {/* Breadcrumb / Back */}
         <div className="mb-8">
           <Link href="/#products" className="text-sm text-text-muted-light hover:text-primary transition-colors flex items-center gap-1">
@@ -218,6 +223,26 @@ export default function CheckoutPage() {
                     Finalizar por WhatsApp
                   </Button>
                   
+                  <Link href="/checkout/guest" className="w-full">
+                    <Button
+                      variant="text"
+                      fullWidth
+                      sx={{
+                        height: 48,
+                        fontSize: '15px',
+                        fontWeight: 600,
+                        textTransform: 'none',
+                        color: '#78716c',
+                        '&:hover': {
+                          backgroundColor: 'rgba(236, 109, 19, 0.05)',
+                          color: '#ec6d13',
+                        }
+                      }}
+                    >
+                      Comprar como Invitado
+                    </Button>
+                  </Link>
+                  
                   <Button
                     variant="outlined"
                     fullWidth
@@ -282,7 +307,7 @@ export default function CheckoutPage() {
             ))}
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </>
   );
 }

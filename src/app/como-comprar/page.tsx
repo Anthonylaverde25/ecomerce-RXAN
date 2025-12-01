@@ -1,14 +1,15 @@
-import HowToOrder from "@/components/HowToOrder";
+"use client";
 
-export const metadata = {
-  title: "Cómo Comprar - Panadería Artesanal",
-  description: "Guía paso a paso para realizar tu pedido online. Pedidos antes de las 11hs se entregan el mismo día.",
-};
+import HowToOrder from "@/components/HowToOrder";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function ComoComprarPage() {
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark border mt-5">
+    <>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-6">
+        <Breadcrumbs items={[{ label: "Cómo Comprar" }]} />
+      </div>
       <HowToOrder />
-    </div>
+    </>
   );
 }

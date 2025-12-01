@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
 @theme {
+    /* Primary Brand Color (same for both themes) */
     --color-primary: #ec6d13;
-    --color-background-light: #f8f7f6;
 
+    /* Light Mode Colors */
+    --color-background-light: #f8f7f6;
     --color-text-light: #1c1917;
     --color-text-muted-light: #78716c;
     --color-border-light: #e7e5e4;
 
+    /* Font */
     --font-display: 'Epilogue', sans-serif;
 }
 
@@ -24,11 +27,11 @@
     .text-balance {
         text-wrap: balance;
     }
-    
+
     .nav-link {
         color: #1b1b1b;
     }
-    
+
     .nav-link:hover {
         color: var(--color-primary);
     }

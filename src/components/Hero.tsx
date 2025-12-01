@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 
 export default function Hero() {
   return (
-    <section className="w-full py-10 md:py-16">
+    <section className="w-full -mt-16 pt-16">
       <div className="relative flex min-h-[520px] flex-col overflow-hidden shadow-lg">
         {/* Capa de imagen de fondo con blur */}
         <div

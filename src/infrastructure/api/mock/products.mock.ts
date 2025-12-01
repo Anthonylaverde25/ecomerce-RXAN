@@ -1,18 +1,10 @@
-export interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  price: number;
-  image: string;
-  images: string[];
-  category: string;
-  ingredients: string[];
-  allergens: string[];
-  featured: boolean;
-}
+// Mock API: Products Data
+// Simula los datos que vendrían de una API REST
+// Incluido stock y timestamps para simular un backend real
 
-export const products: Product[] = [
+import { ProductProps } from '@/domain/entities/Product';
+
+export const MOCK_PRODUCTS: ProductProps[] = [
   {
     id: "1",
     name: "Galleta de Chispas de Chocolate con Sal Marina",
@@ -27,6 +19,9 @@ export const products: Product[] = [
     ingredients: ["Harina de trigo", "Mantequilla europea", "Chocolate belga", "Azúcar", "Huevos", "Sal marina de Maldon"],
     allergens: ["Gluten", "Lácteos", "Huevo"],
     featured: true,
+    stock: 25,
+    createdAt: new Date('2024-01-15'),
+    updatedAt: new Date('2024-12-01'),
   },
   {
     id: "2",
@@ -42,6 +37,9 @@ export const products: Product[] = [
     ingredients: ["Harina", "Azúcar", "Mantequilla", "Queso crema", "Huevos", "Cocoa", "Colorante natural"],
     allergens: ["Gluten", "Lácteos", "Huevo"],
     featured: true,
+    stock: 10,
+    createdAt: new Date('2024-01-20'),
+    updatedAt: new Date('2024-12-01'),
   },
   {
     id: "3",
@@ -51,12 +49,15 @@ export const products: Product[] = [
     price: 2800,
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuClqxxG3gTnGfZYeNZ9F7XKzY589BTTiOW2bkT7vO-Vy4b_7Szu9Y1tr-caU6mWY0wgBUOmwXrFed5KljGrMpNlMKJQKOQ-BXrgrNRxDTVF9mD5KwNh4-CeST1KezO8mM3-i_KJKYzM8Jyr3RpyC43ANzFwqii_iHQlREIsXP_bsPMc-YuCj22j8QXzxdSsYqmvRfvQqLZlOgNkzRw3Om5kAHFIAEsMQ8SBASiSobI96GPDn_5kWf2SAClf4wjmxViPC4YMWhVd1Hc",
     images: [
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuClqxxG3gTnGfZYeNZ9F7XKzY589BTTiOW2bkT7vO-Vy4b_7Szu9Y1tr-caU6mWY0wgBUOmwXrFed5KljGrMpNlMKJQKOQ-BXrgrNRxDTVF9mD5KwNh4-CeST1KezO8mM3-i_KJKYzM8Jyr3RpyC43ANzFwqii_iHQlREIsXP_bsPMc-YuCj22j8QXzxdSsYqmvRfvQqLZlOgNkzRw3Om5kAHFIAE sMQ8SBAJiSobI96GPDn_5kWf2SAClf4wjmxViPC4YMWhVd1Hc",
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuClqxxG3gTnGfZYeNZ9F7XKzY589BTTiOW2bkT7vO-Vy4b_7Szu9Y1tr-caU6mWY0wgBUOmwXrFed5KljGrMpNlMKJQKOQ-BXrgrNRxDTVF9mD5KwNh4-CeST1KezO8mM3-i_KJKYzM8Jyr3RpyC43ANzFwqii_iHQlREIsXP_bsPMc-YuCj22j8QXzxdSsYqmvRfvQqLZlOgNkzRw3Om5kAHFIAEsMQ8SBASiSobI96GPDn_5kWf2SAClf4wjmxViPC4YMWhVd1Hc",
     ],
     category: "Muffins",
     ingredients: ["Masa madre", "Harina integral", "Arándanos frescos", "Miel", "Huevos", "Aceite de oliva"],
     allergens: ["Gluten", "Huevo"],
     featured: true,
+    stock: 30,
+    createdAt: new Date('2024-02-01'),
+    updatedAt: new Date('2024-12-01'),
   },
   {
     id: "4",
@@ -72,6 +73,9 @@ export const products: Product[] = [
     ingredients: ["Harina francesa", "Mantequilla", "Huevos", "Leche", "Canela de Ceilán", "Azúcar morena"],
     allergens: ["Gluten", "Lácteos", "Huevo"],
     featured: true,
+    stock: 20,
+    createdAt: new Date('2024-02-10'),
+    updatedAt: new Date('2024-12-01'),
   },
   {
     id: "5",
@@ -87,6 +91,9 @@ export const products: Product[] = [
     ingredients: ["Harina", "Mantequilla francesa", "Almendras", "Azúcar", "Huevos"],
     allergens: ["Gluten", "Lácteos", "Huevo", "Frutos secos"],
     featured: false,
+    stock: 15,
+    createdAt: new Date('2024-03-01'),
+    updatedAt: new Date('2024-12-01'),
   },
   {
     id: "6",
@@ -102,6 +109,9 @@ export const products: Product[] = [
     ingredients: ["Chocolate belga 70%", "Harina", "Mantequilla", "Huevos", "Azúcar", "Crema"],
     allergens: ["Gluten", "Lácteos", "Huevo"],
     featured: false,
+    stock: 8,
+    createdAt: new Date('2024-03-15'),
+    updatedAt: new Date('2024-12-01'),
   },
   {
     id: "7",
@@ -117,6 +127,9 @@ export const products: Product[] = [
     ingredients: ["Harina integral de trigo", "Agua", "Sal marina", "Masa madre natural"],
     allergens: ["Gluten"],
     featured: false,
+    stock: 12,
+    createdAt: new Date('2024-04-01'),
+    updatedAt: new Date('2024-12-01'),
   },
   {
     id: "8",
@@ -132,6 +145,9 @@ export const products: Product[] = [
     ingredients: ["Masa quebrada", "Crema pastelera", "Fresas", "Kiwi", "Arándanos", "Durazno"],
     allergens: ["Gluten", "Lácteos", "Huevo"],
     featured: false,
+    stock: 6,
+    createdAt: new Date('2024-05-01'),
+    updatedAt: new Date('2024-12-01'),
   },
   {
     id: "9",
@@ -147,6 +163,9 @@ export const products: Product[] = [
     ingredients: ["Harina francesa T65", "Agua", "Sal", "Levadura"],
     allergens: ["Gluten"],
     featured: false,
+    stock: 35,
+    createdAt: new Date('2024-06-01'),
+    updatedAt: new Date('2024-12-01'),
   },
   {
     id: "10",
@@ -162,6 +181,9 @@ export const products: Product[] = [
     ingredients: ["Mantequilla europea", "Harina", "Azúcar", "Vainilla de Madagascar"],
     allergens: ["Gluten", "Lácteos"],
     featured: false,
+    stock: 40,
+    createdAt: new Date('2024-07-01'),
+    updatedAt: new Date('2024-12-01'),
   },
   {
     id: "11",
@@ -177,6 +199,9 @@ export const products: Product[] = [
     ingredients: ["Harina", "Canela de Ceilán", "Azúcar morena", "Mantequilla", "Queso crema", "Leche"],
     allergens: ["Gluten", "Lácteos", "Huevo"],
     featured: false,
+    stock: 18,
+    createdAt: new Date('2024-08-01'),
+    updatedAt: new Date('2024-12-01'),
   },
   {
     id: "12",
@@ -192,5 +217,17 @@ export const products: Product[] = [
     ingredients: ["Zanahoria fresca", "Harina integral", "Nueces", "Canela", "Queso crema", "Azúcar"],
     allergens: ["Gluten", "Lácteos", "Huevo", "Frutos secos"],
     featured: false,
+    stock: 7,
+    createdAt: new Date('2024-09-01'),
+    updatedAt: new Date('2024-12-01'),
   },
+];
+
+// Simular categorías disponibles
+export const MOCK_CATEGORIES = [
+  { id: '1', name: 'Panes', slug: 'panes' },
+  { id: '2', name: 'Pasteles', slug: 'pasteles' },
+  { id: '3', name: 'Galletas', slug: 'galletas' },
+  { id: '4', name: 'Postres', slug: 'postres' },
+  { id: '5', name: 'Muffins', slug: 'muffins' },
 ];

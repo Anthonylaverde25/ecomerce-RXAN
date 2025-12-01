@@ -6,6 +6,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { use } from "react";
 import Button from "@mui/material/Button";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function ProductoDetalle({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
@@ -17,11 +18,19 @@ export default function ProductoDetalle({ params }: { params: Promise<{ slug: st
   }
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col bg-background-light">
-      
-      <main className="flex-1 pt-20 pb-12">
-        {/* Back button */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-6">
+    <>
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-6">
+        <Breadcrumbs
+          items={[
+            { label: "Productos", href: "/productos" },
+            { label: product.name },
+          ]}
+        />
+      </div>
+
+      {/* Back button */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pb-6">
           <Button
             component={Link}
             href="/#products"
@@ -183,7 +192,6 @@ export default function ProductoDetalle({ params }: { params: Promise<{ slug: st
             </div>
           </div>
         </div>
-      </main>
-    </div>
+    </>
   );
 }

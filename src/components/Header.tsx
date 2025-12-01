@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [ isScrolled, setIsScrolled] = useState(false);
@@ -54,15 +55,21 @@ export default function Header() {
         <div className="flex items-center gap-9">
           <Link
             className="text-sm font-medium leading-normal nav-link transition-colors"
-            href="#home"
+            href="/"
           >
             Inicio
           </Link>
           <Link
             className="text-sm font-medium leading-normal nav-link transition-colors"
-            href="#products"
+            href="/#products"
           >
-            Productos
+            Productos Destacados
+          </Link>
+          <Link
+            className="text-sm font-medium leading-normal nav-link transition-colors"
+            href="/productos"
+          >
+            Todos los Productos
           </Link>
           <Link
             className="text-sm font-medium leading-normal nav-link transition-colors"
@@ -150,7 +157,7 @@ export default function Header() {
         <div className="px-4 py-6 flex flex-col gap-1 overflow-y-auto h-[calc(100%-80px)]">
           <Link
             className="text-base font-medium leading-relaxed nav-link transition-all py-3 px-4 rounded-lg hover:bg-primary/10 flex items-center gap-3"
-            href="#home"
+            href="/"
             onClick={() => setIsMenuOpen(false)}
           >
             <span className="material-symbols-outlined text-primary text-[20px]">home</span>
@@ -158,11 +165,19 @@ export default function Header() {
           </Link>
           <Link
             className="text-base font-medium leading-relaxed nav-link transition-all py-3 px-4 rounded-lg hover:bg-primary/10 flex items-center gap-3"
-            href="#products"
+            href="/#products"
             onClick={() => setIsMenuOpen(false)}
           >
             <span className="material-symbols-outlined text-primary text-[20px]">shopping_bag</span>
-            Productos
+            Productos Destacados
+          </Link>
+          <Link
+            className="text-base font-medium leading-relaxed nav-link transition-all py-3 px-4 rounded-lg hover:bg-primary/10 flex items-center gap-3"
+            href="/productos"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <span className="material-symbols-outlined text-primary text-[20px]">storefront</span>
+            Todos los Productos
           </Link>
           <Link
             className="text-base font-medium leading-relaxed nav-link transition-all py-3 px-4 rounded-lg hover:bg-primary/10 flex items-center gap-3"

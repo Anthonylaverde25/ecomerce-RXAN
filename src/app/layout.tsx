@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import type { Metadata } from "next";
 import { Epilogue } from "next/font/google";
 import { Toaster } from "sonner";
@@ -24,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth" style={{ scrollPaddingTop: '64px' }}>
+    <html lang="es" className="scroll-smooth" style={{ scrollPaddingTop: '80px' }}>
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -35,7 +36,9 @@ export default function RootLayout({
         <ThemeRegistry>
           <CartProvider>
             <Header />
-            {children}
+            <main className="pt-16 min-h-screen">
+              {children}
+            </main>
             <Footer />
             <Toaster position="top-right" richColors />
           </CartProvider>
