@@ -14,8 +14,8 @@ const epilogue = Epilogue({
 });
 
 export const metadata: Metadata = {
-  title: "Panadería Artesanal - Productos Frescos",
-  description: "Delicias artesanales, horneadas frescas todos los días.",
+  title: "Panadería Artesanal - Compra Online | Productos Frescos",
+  description: "Compra online delicias artesanales horneadas frescas todos los días. Envío gratis en CABA. Pedidos antes de las 11hs = entrega el mismo día.",
 };
 
 export default function RootLayout({

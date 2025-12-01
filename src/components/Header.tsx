@@ -66,15 +66,15 @@ export default function Header() {
           </Link>
           <Link
             className="text-sm font-medium leading-normal nav-link transition-colors"
-            href="#about"
+            href="/como-comprar"
           >
-            Sobre Nosotros
+            Cómo Comprar
           </Link>
           <Link
             className="text-sm font-medium leading-normal nav-link transition-colors"
-            href="#contact"
+            href="/envios"
           >
-            Contacto
+            Envíos
           </Link>
         </div>
         
@@ -166,19 +166,19 @@ export default function Header() {
           </Link>
           <Link
             className="text-base font-medium leading-relaxed nav-link transition-all py-3 px-4 rounded-lg hover:bg-primary/10 flex items-center gap-3"
-            href="#about"
+            href="/como-comprar"
             onClick={() => setIsMenuOpen(false)}
           >
-            <span className="material-symbols-outlined text-primary text-[20px]">info</span>
-            Sobre Nosotros
+            <span className="material-symbols-outlined text-primary text-[20px]">shopping_cart_checkout</span>
+            Cómo Comprar
           </Link>
           <Link
             className="text-base font-medium leading-relaxed nav-link transition-all py-3 px-4 rounded-lg hover:bg-primary/10 flex items-center gap-3"
-            href="#contact"
+            href="/envios"
             onClick={() => setIsMenuOpen(false)}
           >
-            <span className="material-symbols-outlined text-primary text-[20px]">mail</span>
-            Contacto
+            <span className="material-symbols-outlined text-primary text-[20px]">local_shipping</span>
+            Envíos
           </Link>
           
           {/* Separador */}

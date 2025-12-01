@@ -1,8 +1,7 @@
 import Hero from "@/components/Hero";
+import Categories from "@/components/Categories";
 import ProductGrid from "@/components/ProductGrid";
-import Story from "@/components/Story";
 import Testimonials from "@/components/Testimonials";
-import Contact from "@/components/Contact";
 import FAQ from "@/components/FAQ";
 import SocialFloating from "@/components/SocialFloating";
 
@@ -22,17 +21,25 @@ export default function Home() {
         <div className="flex flex-1 justify-center pb-8 sm:px-4 md:px-10 lg:px-20 xl:px-40">
           <div className="layout-content-container flex flex-col max-w-7xl flex-1">
             <main>
+              {/* Categories Section */}
+              <div id="categories" className="scroll-mt-16">
+                <Categories />
+              </div>
+
+              {/* All Products Section */}
               <div id="products" className="scroll-mt-16">
                 <ProductGrid />
               </div>
-              <div id="about" className="scroll-mt-16">
-                <Story />
+
+              {/* Testimonials - builds trust */}
+              <div id="testimonios" className="scroll-mt-16">
                 <Testimonials />
               </div>
-              <div id="contact" className="scroll-mt-16">
-                <Contact />
+
+              {/* FAQ - E-commerce focused */}
+              <div id="faq" className="scroll-mt-16">
+                <FAQ />
               </div>
-              <FAQ />
             </main>
           </div>
         </div>
@@ -41,3 +48,4 @@ export default function Home() {
     </div>
   );
 }
+

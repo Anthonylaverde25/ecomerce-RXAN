@@ -77,11 +77,11 @@ export default function Hero() {
                     transition: 'all 0.2s'
                   }}
                 >
-                  Explorar catálogo
+                  Comprar Ahora
                 </Button>
                 <Button
                   component={Link}
-                  href="/#menu"
+                  href="/#categories"
                   variant="outlined"
                   size="large"
                   sx={{
@@ -99,7 +99,7 @@ export default function Hero() {
                     }
                   }}
                 >
-                  Ver menú del día
+                  Ver Categorías
                 </Button>
               </div>
 
