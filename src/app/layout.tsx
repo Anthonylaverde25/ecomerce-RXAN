@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { Epilogue } from "next/font/google";
 import { Toaster } from "sonner";
 import { CartProvider } from "@/context/CartContext";
+import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
 import ThemeRegistry from "@/components/ThemeRegistry";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Header, Footer } from "@/components/layout";
 import "../styles/globals.scss";
 
 const epilogue = Epilogue({
@@ -34,12 +34,14 @@ export default function RootLayout({
       </head>
       <body className={`${epilogue.variable} font-display antialiased bg-background-light text-text-light`}>
         <ThemeRegistry>
-          <Header />
-          <main className="pt-16 min-h-screen">
-            {children}
-          </main>
-          <Footer />
-          <Toaster position="top-right" richColors />
+          <ReactQueryProvider>
+            <Header />
+            <main className="pt-16 min-h-screen">
+              {children}
+            </main>
+            <Footer />
+            <Toaster position="top-right" richColors />
+          </ReactQueryProvider>
         </ThemeRegistry>
       </body>
     </html>

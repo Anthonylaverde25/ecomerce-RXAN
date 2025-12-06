@@ -1,7 +1,7 @@
 "use client";
 
 import ShippingInfo from "@/components/ShippingInfo";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import { Breadcrumbs } from "@/components/shared";
 
 export default function EnviosPage() {
   return (

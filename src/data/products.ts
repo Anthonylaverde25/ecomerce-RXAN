@@ -1,18 +1,6 @@
-export interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  price: number;
-  image: string;
-  images: string[];
-  category: string;
-  ingredients: string[];
-  allergens: string[];
-  featured: boolean;
-}
+import type { ProductProps } from '@/domain';
 
-export const products: Product[] = [
+export const products: ProductProps[] = [
   {
     id: "1",
     name: "Galleta de Chispas de Chocolate con Sal Marina",

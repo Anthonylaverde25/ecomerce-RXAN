@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/presentation/store/useCartStore";
 import { ReactNode } from "react";
-import { Product as DataProduct } from "@/data/products";
-import { Product as DomainProduct } from "@/domain/entities/Product";
+import type { ProductProps } from "@/domain";
+import { Product as DomainProduct } from "@/domain";
 
 // Re-export CartItem for compatibility
 export type { CartItem } from "@/domain/entities/CartItem";
@@ -27,8 +27,8 @@ export function useCart() {
   const total = store.items.reduce((sum, item) => sum + item.getSubtotal(), 0);
   const itemCount = store.items.reduce((sum, item) => sum + item.quantity, 0);
 
-  // Adapter for addItem to accept DataProduct
-  const addItem = (product: DataProduct) => {
+  // Adapter for addItem to accept ProductProps
+  const addItem = (product: ProductProps) => {
     const domainProduct = DomainProduct.fromJSON({
       ...product,
       stock: 100, // Default stock for mock data
@@ -41,7 +41,7 @@ export function useCart() {
   if (!mounted) {
     return {
       items: [],
-      addItem: (product: DataProduct) => {},
+      addItem: (product: ProductProps) => {},
       removeItem: () => {},
       updateQuantity: () => {},
       clearCart: () => {},

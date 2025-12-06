@@ -1,7 +1,7 @@
 "use client";
 
 import HowToOrder from "@/components/HowToOrder";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import { Breadcrumbs } from "@/components/shared";
 
 export default function ComoComprarPage() {
   return (

@@ -2,7 +2,7 @@ export default function Story() {
   return (
     <div className="grid md:grid-cols-2 gap-10 items-center px-4 py-16">
       <div className="flex flex-col gap-4">
-        <h1 className="text-text-light dark:text-text-dark text-[32px] font-bold leading-tight tracking-tighter md:text-4xl">
+        <h1 className="text-4xl font-black leading-tight tracking-tight text-text-light dark:text-text-dark">
           Nuestra Historia
         </h1>
         <p className="text-base font-normal leading-normal text-text-light dark:text-text-dark/90">

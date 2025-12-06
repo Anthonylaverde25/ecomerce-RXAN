@@ -7,7 +7,7 @@ import { products } from "@/data/products";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import { Breadcrumbs } from "@/components/shared";
 import { useState } from "react";
 
 export default function CheckoutPage() {

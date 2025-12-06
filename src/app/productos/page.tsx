@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { products } from "@/data/products";
 import { useCart } from "@/context/CartContext";
-import ProductFilters from "@/components/ProductFilters";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import { ProductFilters } from "@/components/features/products";
+import { Breadcrumbs } from "@/components/shared";
 import Link from "next/link";
-import type { FilterState } from "@/components/ProductFilters";
+import type { FilterState } from "@/components/features/products/ProductFilters";
 
 export default function ProductosPage() {
   const { addItem } = useCart();

@@ -23,7 +23,7 @@ export default function Testimonials() {
   return (
     <div className="px-4 py-16">
       <div className="text-center mb-12">
-        <h2 className="text-text-light dark:text-text-dark text-[32px] font-bold leading-tight tracking-tighter md:text-4xl">
+        <h2 className="text-4xl font-black leading-tight tracking-tight text-text-light dark:text-text-dark">
           Lo Que Dicen Nuestros Clientes
         </h2>
         <p className="text-text-muted-light dark:text-text-muted-dark mt-2 max-w-2xl mx-auto">

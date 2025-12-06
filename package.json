@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@mui/material": "^7.3.5",
     "@mui/material-nextjs": "^7.3.5",
+    "@tanstack/react-query": "^5.90.11",
     "axios": "^1.13.2",
     "formik": "^2.4.9",
     "google-auth-library": "^10.5.0",

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { use } from "react";
 import Button from "@mui/material/Button";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import { Breadcrumbs } from "@/components/shared";
 
 export default function ProductoDetalle({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);

@@ -26,7 +26,7 @@ export default function Hero() {
                 Recién horneado · Envíos en el día
               </p>
 
-              <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+              <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
                 Delicias artesanales,
                 <span className="block text-primary-200">
                   horneadas frescas a diario
