@@ -2,27 +2,13 @@
 // Esta entidad representa un producto en nuestro dominio de negocio
 // No tiene dependencias externas, es una clase pura de TypeScript
 
-export interface ProductProps {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  price: number; // precio en centavos
-  image: string;
-  images: string[];
-  category: string;
-  ingredients: string[];
-  allergens: string[];
-  featured: boolean;
-  stock?: number;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+import { ProductEntity } from "@/types/product.types";
+
 
 export class Product {
-  private readonly props: ProductProps;
+  private readonly props: ProductEntity;
 
-  constructor(props: ProductProps) {
+  constructor(props: ProductEntity) {
     this.props = props;
   }
 
@@ -35,10 +21,6 @@ export class Product {
     return this.props.name;
   }
 
-  get slug(): string {
-    return this.props.slug;
-  }
-
   get description(): string {
     return this.props.description;
   }
@@ -47,76 +29,80 @@ export class Product {
     return this.props.price;
   }
 
-  get image(): string {
-    return this.props.image;
-  }
-
-  get images(): string[] {
-    return this.props.images;
-  }
-
-  get category(): string {
-    return this.props.category;
-  }
-
-  get ingredients(): string[] {
-    return [...this.props.ingredients];
-  }
-
-  get allergens(): string[] {
-    return [...this.props.allergens];
-  }
-
-  get featured(): boolean {
-    return this.props.featured;
+  get costPrice(): number {
+    return this.props.cost_price;
   }
 
   get stock(): number {
-    return this.props.stock ?? 0;
+    return this.props.stock;
+  }
+
+  get isActive(): boolean {
+    return this.props.is_active;
+  }
+
+  get createdAt(): string | undefined {
+    return this.props.created_at;
+  }
+
+  get updatedAt(): string | undefined {
+    return this.props.updated_at;
   }
 
   // Métodos de dominio (lógica de negocio)
-  
+
   /**
    * Verifica si el producto está disponible para compra
+   * Un producto está disponible si está activo y tiene stock
    */
   isAvailable(): boolean {
-    return this.stock > 0;
+    return this.isActive && this.stock > 0;
   }
 
   /**
    * Obtiene el precio formateado en la moneda local
+   * Nota: Ajusta el divisor según cómo Laravel devuelva el precio
+   * Si Laravel ya devuelve el decimal (ej: 99.99), usa this.price directamente
+   * Si devuelve en centavos (ej: 9999), divide por 100
    */
   getFormattedPrice(locale: string = 'es-AR', currency: string = 'ARS'): string {
     return new Intl.NumberFormat(locale, {
       style: 'currency',
       currency,
       minimumFractionDigits: 2,
-    }).format(this.price / 100);
+    }).format(this.price); // Ajusta esto si Laravel devuelve en centavos
   }
 
   /**
-   * Verifica si el producto tiene un alérgeno específico
+   * Obtiene el precio de costo formateado
    */
-  hasAllergen(allergen: string): boolean {
-    return this.allergens.some(
-      (a) => a.toLowerCase() === allergen.toLowerCase()
-    );
+  getFormattedCostPrice(locale: string = 'es-AR', currency: string = 'ARS'): string {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency,
+      minimumFractionDigits: 2,
+    }).format(this.costPrice);
   }
 
   /**
-   * Verifica si el producto contiene un ingrediente específico
+   * Calcula el margen de ganancia (diferencia entre precio y costo)
    */
-  hasIngredient(ingredient: string): boolean {
-    return this.ingredients.some(
-      (i) => i.toLowerCase().includes(ingredient.toLowerCase())
-    );
+  getProfitMargin(): number {
+    return this.price - this.costPrice;
+  }
+
+  /**
+   * Calcula el porcentaje de ganancia
+   */
+  getProfitPercentage(): number {
+    if (this.costPrice === 0) return 0;
+    return ((this.price - this.costPrice) / this.costPrice) * 100;
   }
 
   /**
    * Convierte la entidad a un objeto plano para serialización
    */
-  toJSON(): ProductProps {
+  toJSON(): ProductEntity {
     return {
       ...this.props,
     };
@@ -125,7 +111,7 @@ export class Product {
   /**
    * Crea una instancia de Product desde un objeto plano
    */
-  static fromJSON(data: ProductProps): Product {
+  static fromJSON(data: ProductEntity): Product {
     return new Product(data);
   }
 }

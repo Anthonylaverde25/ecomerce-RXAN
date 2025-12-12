@@ -43,7 +43,7 @@ const mainCategories = [
 export default function Categories() {
     // Usar el hook correctamente - React Query retorna { data, isLoading, error }
     const { data: categories, isLoading, error } = useCategories()
-    
+
     // Log para debugging
     console.log('categorias', categories)
     console.log('isLoading', isLoading)
@@ -64,7 +64,7 @@ export default function Categories() {
                         </p>
                     </div>
                     <Link
-                        href="/categorias"
+                        href="/categories"
                         className="hidden md:flex items-center gap-2 text-text-muted-light hover:text-primary transition-colors"
                     >
                         <span className="text-text-muted-bold">
@@ -86,7 +86,7 @@ export default function Categories() {
                             const categoryData = categoryImages[category]
                             return (
                                 <Link
-                                    href={`/productos?category=${encodeURIComponent(
+                                    href={`/products?category=${encodeURIComponent(
                                         category
                                     )}`}
                                     className="relative group overflow-hidden rounded-2xl h-[400px] md:h-[450px] lg:h-[500px] cursor-pointer"
@@ -133,7 +133,7 @@ export default function Categories() {
                             const categoryData = categoryImages[category]
                             return (
                                 <Link
-                                    href={`/productos?category=${encodeURIComponent(
+                                    href={`/products?category=${encodeURIComponent(
                                         category
                                     )}`}
                                     className="relative group overflow-hidden rounded-2xl h-[280px] md:h-[300px] cursor-pointer"
@@ -183,7 +183,7 @@ export default function Categories() {
                             const categoryData = categoryImages[category]
                             return (
                                 <Link
-                                    href={`/productos?category=${encodeURIComponent(
+                                    href={`/products?category=${encodeURIComponent(
                                         category
                                     )}`}
                                     className="relative group overflow-hidden rounded-2xl h-[300px] cursor-pointer"
@@ -230,7 +230,7 @@ export default function Categories() {
                             const categoryData = categoryImages[category]
                             return (
                                 <Link
-                                    href={`/productos?category=${encodeURIComponent(
+                                    href={`/products?category=${encodeURIComponent(
                                         category
                                     )}`}
                                     className="relative group overflow-hidden rounded-2xl h-[400px] lg:h-[500px] cursor-pointer"
@@ -277,7 +277,7 @@ export default function Categories() {
                 {/* <div className="flex justify-end mt-10">
           <Button
             variant="contained"
-            href="/productos"
+            href="/products"
             component={Link}
             endIcon={<span className="material-symbols-outlined text-[20px]">arrow_forward</span>}
             sx={{

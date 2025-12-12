@@ -75,7 +75,7 @@ export function CategoryNavMenu() {
           ?.filter((cat) => cat.is_active && !cat.parent_id) // Solo categorías padre activas
           .map((category) => (
             <li key={category.id}>
-              <a href={`/categorias/${category.id}`}>{category.name}</a>
+              <a href={`/categories/${category.id}`}>{category.name}</a>
             </li>
           ))}
       </ul>
@@ -192,7 +192,7 @@ export function HierarchicalCategories() {
 
   // Separar categorías padre e hijos
   const parentCategories = categories?.filter((cat) => !cat.parent_id) || [];
-  
+
   const getSubcategories = (parentId: number) => {
     return categories?.filter((cat) => cat.parent_id === parentId) || [];
   };
@@ -201,7 +201,7 @@ export function HierarchicalCategories() {
     <div>
       {parentCategories.map((parent) => {
         const subcategories = getSubcategories(parent.id!);
-        
+
         return (
           <div key={parent.id} className="mb-4">
             <h3 className="font-bold text-lg">{parent.name}</h3>

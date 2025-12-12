@@ -5,15 +5,17 @@
 import { Product } from '../entities/Product';
 
 export interface ProductFilters {
-  category?: string;
-  categories?: string[];
-  featured?: boolean;
+  featured?: boolean; // Ahora mapea a is_active del backend
   minPrice?: number;
   maxPrice?: number;
   search?: string;
 }
 
 export interface IProductRepository {
+
+
+  index(): Promise<Product[]>
+  show(id: string): Promise<Product | null>
   /**
    * Obtiene todos los productos
    */
@@ -31,11 +33,7 @@ export interface IProductRepository {
    */
   getById(id: string): Promise<Product | null>;
 
-  /**
-   * Obtiene un producto por su slug
-   * @param slug - Slug del producto
-   */
-  getBySlug(slug: string): Promise<Product | null>;
+
 
   /**
    * Obtiene productos destacados
@@ -43,11 +41,7 @@ export interface IProductRepository {
    */
   getFeatured(limit?: number): Promise<Product[]>;
 
-  /**
-   * Obtiene productos por categoría
-   * @param category - Nombre de la categoría
-   */
-  getByCategory(category: string): Promise<Product[]>;
+
 
   /**
    * Busca productos por término

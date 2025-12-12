@@ -11,7 +11,7 @@ import Badge from "@mui/material/Badge";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [ isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { itemCount } = useCart();
 
@@ -23,18 +23,17 @@ export default function Header() {
 
     // Establecer estado inicial
     handleScroll();
-    
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header
-      className={`fixed w-full top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid px-4 py-3 transition-all duration-300 sm:px-6 md:px-10 ${
-        isScrolled
-          ? "border-border-light/50 bg-background-light/80 backdrop-blur-md shadow-sm"
-          : "border-transparent bg-transparent"
-      }`}
+      className={`fixed w-full top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid px-4 py-3 transition-all duration-300 sm:px-6 md:px-10 ${isScrolled
+        ? "border-border-light/50 bg-background-light/80 backdrop-blur-md shadow-sm"
+        : "border-transparent bg-transparent"
+        }`}
     >
       <div className="flex items-center gap-4">
         <div className="size-6 text-primary">
@@ -67,25 +66,25 @@ export default function Header() {
           </Link>
           <Link
             className="text-sm font-medium leading-normal nav-link transition-colors"
-            href="/productos"
+            href="/products"
           >
             Todos los Productos
           </Link>
           <Link
             className="text-sm font-medium leading-normal nav-link transition-colors"
-            href="/como-comprar"
+            href="/how-to-buy"
           >
             Cómo Comprar
           </Link>
           <Link
             className="text-sm font-medium leading-normal nav-link transition-colors"
-            href="/envios"
+            href="/shipping"
           >
             Envíos
           </Link>
         </div>
-        
-        
+
+
         {/* Cart Icon Desktop - Minimalista y Elegante */}
         <button
           onClick={() => setIsCartOpen(true)}
@@ -96,7 +95,7 @@ export default function Header() {
           <span className="material-symbols-outlined text-[26px] text-text-light dark:text-text-dark group-hover:text-primary transition-colors">
             shopping_cart
           </span>
-          
+
           {/* Badge contador - Solo si hay items */}
           {itemCount > 0 && (
             <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[22px] h-[22px] px-1.5 bg-primary text-white text-xs font-bold rounded-full shadow-lg ring-2 ring-white dark:ring-gray-900">
@@ -115,7 +114,7 @@ export default function Header() {
           <span className="material-symbols-outlined text-[26px] text-text-light dark:text-text-dark group-hover:text-primary transition-colors">
             shopping_cart
           </span>
-          
+
           {itemCount > 0 && (
             <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[22px] h-[22px] px-1.5 bg-primary text-white text-xs font-bold rounded-full shadow-lg ring-2 ring-white">
               {itemCount}
@@ -129,25 +128,23 @@ export default function Header() {
           <span className="material-symbols-outlined">menu</span>
         </IconButton>
       </div>
-      
+
       {/* Overlay - Fondo oscuro */}
-      <div 
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] md:hidden transition-opacity duration-300 ${
-          isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
+      <div
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] md:hidden transition-opacity duration-300 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
         onClick={() => setIsMenuOpen(false)}
       />
 
       {/* Drawer lateral */}
-      <div 
-        className={`fixed top-0 right-0 h-full w-[280px] bg-background-light shadow-2xl z-[70] md:hidden transition-transform duration-300 ease-out ${
-          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+      <div
+        className={`fixed top-0 right-0 h-full w-[280px] bg-background-light shadow-2xl z-[70] md:hidden transition-transform duration-300 ease-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         {/* Header del drawer */}
         <div className="flex items-center justify-between p-6 border-b border-border-light">
           <h3 className="text-lg font-bold nav-link">Menú</h3>
-          <IconButton 
+          <IconButton
             onClick={() => setIsMenuOpen(false)}
             sx={{ color: '#78716c' }}
           >
@@ -175,7 +172,7 @@ export default function Header() {
           </Link>
           <Link
             className="text-base font-medium leading-relaxed nav-link transition-all py-3 px-4 rounded-lg hover:bg-primary/10 flex items-center gap-3"
-            href="/productos"
+            href="/products"
             onClick={() => setIsMenuOpen(false)}
           >
             <span className="material-symbols-outlined text-primary text-[20px]">storefront</span>
@@ -183,7 +180,7 @@ export default function Header() {
           </Link>
           <Link
             className="text-base font-medium leading-relaxed nav-link transition-all py-3 px-4 rounded-lg hover:bg-primary/10 flex items-center gap-3"
-            href="/como-comprar"
+            href="/how-to-buy"
             onClick={() => setIsMenuOpen(false)}
           >
             <span className="material-symbols-outlined text-primary text-[20px]">shopping_cart_checkout</span>
@@ -191,16 +188,16 @@ export default function Header() {
           </Link>
           <Link
             className="text-base font-medium leading-relaxed nav-link transition-all py-3 px-4 rounded-lg hover:bg-primary/10 flex items-center gap-3"
-            href="/envios"
+            href="/shipping"
             onClick={() => setIsMenuOpen(false)}
           >
             <span className="material-symbols-outlined text-primary text-[20px]">local_shipping</span>
             Envíos
           </Link>
-          
+
           {/* Separador */}
           <div className="h-px bg-border-light my-4"></div>
-          
+
           {/* Botón CTA */}
           {/* Cart Icon - Minimalista */}
           <button
@@ -215,7 +212,7 @@ export default function Header() {
             <span className="material-symbols-outlined text-2xl text-text-light dark:text-text-dark group-hover:text-primary transition-colors">
               shopping_cart
             </span>
-            
+
             {/* Badge contador - Solo si hay items */}
             {itemCount > 0 && (
               <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-[20px] h-5 px-1.5 bg-primary text-white text-xs font-bold rounded-full shadow-md">

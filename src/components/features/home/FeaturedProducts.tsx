@@ -28,7 +28,7 @@ export default function FeaturedProducts() {
               Los favoritos de nuestros clientes
             </p>
           </div>
-          
+
           {/* Link "Ver Catálogo Completo" - Desktop */}
           <Link
             href="/#products"
@@ -52,7 +52,7 @@ export default function FeaturedProducts() {
           {featuredProducts.map((product) => (
             <Link
               key={product.id}
-              href={`/productos/${product.slug}`}
+              href={`/products/${product.slug}`}
               className="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
               {/* Product Image */}
@@ -61,7 +61,7 @@ export default function FeaturedProducts() {
                   className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                   style={{ backgroundImage: `url("${product.image}")` }}
                 />
-                
+
                 {/* Featured Badge */}
                 <div className="absolute top-3 right-3 bg-primary text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
                   Popular
@@ -84,7 +84,7 @@ export default function FeaturedProducts() {
                 <h3 className="text-lg font-semibold text-text-light dark:text-text-dark mb-2 line-clamp-2 group-hover:text-primary transition-colors">
                   {product.name}
                 </h3>
-                
+
                 <p className="text-sm text-text-muted-light dark:text-text-muted-dark mb-3 line-clamp-2">
                   {product.description}
                 </p>

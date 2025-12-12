@@ -70,29 +70,29 @@ export default function ProductGrid() {
   return (
     <Box>
       <div className="flex items-center justify-between gap-4 mb-10 border">
-          <div>
-            <h2 className="text-4xl font-black leading-tight tracking-[-0.033em] nav-link">
+        <div>
+          <h2 className="text-4xl font-black leading-tight tracking-[-0.033em] nav-link">
             Productos Destacados
           </h2>
           <p className="text-base font-normal leading-normal text-text-muted-light max-w-2xl">
             Descubre nuestros productos destacados
           </p>
-          </div>
-          <Link
-  href="/productos"
-  className="w-full md:w-auto text-text-muted-light flex items-center gap-2 hover:text-primary transition-colors"
->
-  <span className="text-text-muted-bold">Ver Todos los Productos</span>
-  <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
-</Link>
-
         </div>
+        <Link
+          href="/products"
+          className="w-full md:w-auto text-text-muted-light flex items-center gap-2 hover:text-primary transition-colors"
+        >
+          <span className="text-text-muted-bold">Ver Todos los Productos</span>
+          <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+        </Link>
+
+      </div>
 
       <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-4 p-4">
         {featuredProducts.map((product) => (
           <ProductCard
             key={product.id}
-            href={`/productos/${product.slug}`}
+            href={`/products/${product.slug}`}
             image={product.image}
             title={product.name}
             subtitle="Ver Detalles"
@@ -101,7 +101,7 @@ export default function ProductGrid() {
         ))}
       </div>
 
-     
+
     </Box>
   );
 }

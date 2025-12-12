@@ -6,6 +6,9 @@ import 'reflect-metadata';
 import { Product } from '@/domain/entities/Product';
 import { IProductRepository, ProductFilters } from '@/domain/repositories/IProductRepository';
 import { MOCK_PRODUCTS } from '../api/mock/products.mock';
+import { toast } from 'sonner';
+import axiosInstance from '@/lib/axios';
+import { getAllProductsRequest, ProductProps, showProductRequest } from '@/types/product.types';
 
 @injectable()
 export class ProductRepository implements IProductRepository {
@@ -16,11 +19,36 @@ export class ProductRepository implements IProductRepository {
     this.products = MOCK_PRODUCTS.map(p => Product.fromJSON(p));
   }
 
+
+
+
+
   /**
    * Simula delay de red
    */
   private async delay(ms: number = 300): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+
+  async index(): Promise<Product[]> {
+    try {
+      const { data: { products } } = await axiosInstance.get<{ products: getAllProductsRequest[] }>(`api/public/products`)
+      return products.map((p: getAllProductsRequest) => new Product(p))
+    } catch (error) {
+      toast.error('Error al cargar los productos')
+      throw error
+    }
+  }
+
+  async show(id: string): Promise<Product | null> {
+    try {
+      const { data: { product } } = await axiosInstance.get<{ product: showProductRequest }>(`api/public/products/${id}`)
+      return new Product(product)
+    } catch (error) {
+      toast.error('Error al cargar el producto')
+      throw error
+    }
   }
 
   async getAll(): Promise<Product[]> {
@@ -30,23 +58,13 @@ export class ProductRepository implements IProductRepository {
 
   async getFiltered(filters: ProductFilters): Promise<Product[]> {
     await this.delay();
-    
+
     let filtered = [...this.products];
 
-    if (filters.category) {
-      filtered = filtered.filter(p => 
-        p.category.toLowerCase() === filters.category?.toLowerCase()
-      );
-    }
-
-    if (filters.categories && filters.categories.length > 0) {
-      filtered = filtered.filter(p =>
-        filters.categories!.some(cat => p.category.toLowerCase() === cat.toLowerCase())
-      );
-    }
-
+    // Solo filtramos por is_active si el filtro featured está presente
+    // (asumiendo que "featured" se mapea a "is_active" en el nuevo modelo)
     if (filters.featured !== undefined) {
-      filtered = filtered.filter(p => p.featured === filters.featured);
+      filtered = filtered.filter(p => p.isActive === filters.featured);
     }
 
     if (filters.minPrice !== undefined) {
@@ -61,8 +79,7 @@ export class ProductRepository implements IProductRepository {
       const searchTerm = filters.search.toLowerCase();
       filtered = filtered.filter(p =>
         p.name.toLowerCase().includes(searchTerm) ||
-        p.description.toLowerCase().includes(searchTerm) ||
-        p.category.toLowerCase().includes(searchTerm)
+        p.description.toLowerCase().includes(searchTerm)
       );
     }
 
@@ -74,32 +91,25 @@ export class ProductRepository implements IProductRepository {
     return this.products.find(p => p.id === id) || null;
   }
 
-  async getBySlug(slug: string): Promise<Product | null> {
-    await this.delay();
-    return this.products.find(p => p.slug === slug) || null;
-  }
+  // Método getBySlug eliminado: el campo slug ya no existe en el modelo
+  // Si necesitas buscar por slug, debes agregarlo al backend primero
 
   async getFeatured(limit?: number): Promise<Product[]> {
     await this.delay();
-    const featured = this.products.filter(p => p.featured);
-    return limit ? featured.slice(0, limit) : featured;
+    // Ahora "featured" se mapea a productos activos
+    const active = this.products.filter(p => p.isActive);
+    return limit ? active.slice(0, limit) : active;
   }
 
-  async getByCategory(category: string): Promise<Product[]> {
-    await this.delay();
-    return this.products.filter(p => 
-      p.category.toLowerCase() === category.toLowerCase()
-    );
-  }
+  // Método getByCategory eliminado: el campo category ya no existe en el modelo
+  // Si necesitas categorías, debes agregarlas al backend primero
 
   async search(term: string): Promise<Product[]> {
     await this.delay();
     const searchTerm = term.toLowerCase();
     return this.products.filter(p =>
       p.name.toLowerCase().includes(searchTerm) ||
-      p.description.toLowerCase().includes(searchTerm) ||
-      p.category.toLowerCase().includes(searchTerm) ||
-      p.ingredients.some(i => i.toLowerCase().includes(searchTerm))
+      p.description.toLowerCase().includes(searchTerm)
     );
   }
 }
