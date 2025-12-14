@@ -62,6 +62,15 @@ export interface showProductRequest {
     updated_at?: string,
 }
 
+export interface ProductFilterCriteria {
+    search?: string,
+    categoryIds?: number[]
+    minPrice?: number,
+    maxPrice?: number
+    sortBy?: 'price' | 'name',
+    sortDirection?: 'asc' | 'desc',
+}
+
 
 
 

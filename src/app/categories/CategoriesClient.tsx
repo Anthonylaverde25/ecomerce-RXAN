@@ -8,7 +8,6 @@ const DEFAULT_CATEGORY_IMAGE = "https://lh3.googleusercontent.com/aida-public/AB
 
 export default function CategoriesClient() {
   const { data: categoriesData, isLoading } = useCategories();
-  console.log('categories data', categoriesData);
 
   if (isLoading) {
     return (

@@ -4,11 +4,11 @@
 import { injectable } from 'inversify';
 import 'reflect-metadata';
 import { Product } from '@/domain/entities/Product';
-import { IProductRepository, ProductFilters } from '@/domain/repositories/IProductRepository';
+import { IProductRepository } from '@/domain/repositories/IProductRepository';
 import { MOCK_PRODUCTS } from '../api/mock/products.mock';
 import { toast } from 'sonner';
 import axiosInstance from '@/lib/axios';
-import { getAllProductsRequest, ProductProps, showProductRequest } from '@/types/product.types';
+import { getAllProductsRequest, ProductFilterCriteria, ProductProps, showProductRequest } from '@/types/product.types';
 
 @injectable()
 export class ProductRepository implements IProductRepository {
@@ -30,14 +30,42 @@ export class ProductRepository implements IProductRepository {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  /**
+   * Serializa parámetros para Laravel (sin usar librerías externas)
+   * Convierte arrays a formato indices: categoryIds[0]=1&categoryIds[1]=2
+   */
+  private serializeParams(criteria: ProductFilterCriteria): string {
+    const params = new URLSearchParams();
 
-  async index(): Promise<Product[]> {
+    Object.entries(criteria).forEach(([key, value]) => {
+      if (value === undefined || value === null) return;
+
+      if (Array.isArray(value)) {
+        // Serializar arrays con índices: key[0]=val1&key[1]=val2
+        value.forEach((item, index) => {
+          params.append(`${key}[${index}]`, String(item));
+        });
+      } else {
+        params.append(key, String(value));
+      }
+    });
+
+    return params.toString();
+  }
+
+  async index(criteria: ProductFilterCriteria = {}): Promise<Product[]> {
     try {
-      const { data: { products } } = await axiosInstance.get<{ products: getAllProductsRequest[] }>(`api/public/products`)
-      return products.map((p: getAllProductsRequest) => new Product(p))
+      // Construir URL con parámetros serializados correctamente
+      // const queryString = this.serializeParams(criteria);
+      // const url = `api/public/products${queryString ? `?${queryString}` : ''}`;
+
+      const { data: { products } } = await axiosInstance.get<{ products: getAllProductsRequest[] }>(`api/public/products`, {
+        params: criteria
+      });
+      return products.map((p: getAllProductsRequest) => new Product(p));
     } catch (error) {
-      toast.error('Error al cargar los productos')
-      throw error
+      toast.error('Error al cargar los productos');
+      throw error;
     }
   }
 
@@ -49,67 +77,5 @@ export class ProductRepository implements IProductRepository {
       toast.error('Error al cargar el producto')
       throw error
     }
-  }
-
-  async getAll(): Promise<Product[]> {
-    await this.delay();
-    return [...this.products];
-  }
-
-  async getFiltered(filters: ProductFilters): Promise<Product[]> {
-    await this.delay();
-
-    let filtered = [...this.products];
-
-    // Solo filtramos por is_active si el filtro featured está presente
-    // (asumiendo que "featured" se mapea a "is_active" en el nuevo modelo)
-    if (filters.featured !== undefined) {
-      filtered = filtered.filter(p => p.isActive === filters.featured);
-    }
-
-    if (filters.minPrice !== undefined) {
-      filtered = filtered.filter(p => p.price >= filters.minPrice!);
-    }
-
-    if (filters.maxPrice !== undefined) {
-      filtered = filtered.filter(p => p.price <= filters.maxPrice!);
-    }
-
-    if (filters.search) {
-      const searchTerm = filters.search.toLowerCase();
-      filtered = filtered.filter(p =>
-        p.name.toLowerCase().includes(searchTerm) ||
-        p.description.toLowerCase().includes(searchTerm)
-      );
-    }
-
-    return filtered;
-  }
-
-  async getById(id: string): Promise<Product | null> {
-    await this.delay();
-    return this.products.find(p => p.id === id) || null;
-  }
-
-  // Método getBySlug eliminado: el campo slug ya no existe en el modelo
-  // Si necesitas buscar por slug, debes agregarlo al backend primero
-
-  async getFeatured(limit?: number): Promise<Product[]> {
-    await this.delay();
-    // Ahora "featured" se mapea a productos activos
-    const active = this.products.filter(p => p.isActive);
-    return limit ? active.slice(0, limit) : active;
-  }
-
-  // Método getByCategory eliminado: el campo category ya no existe en el modelo
-  // Si necesitas categorías, debes agregarlas al backend primero
-
-  async search(term: string): Promise<Product[]> {
-    await this.delay();
-    const searchTerm = term.toLowerCase();
-    return this.products.filter(p =>
-      p.name.toLowerCase().includes(searchTerm) ||
-      p.description.toLowerCase().includes(searchTerm)
-    );
   }
 }

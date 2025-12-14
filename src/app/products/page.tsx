@@ -11,9 +11,17 @@ import {
 import { Breadcrumbs } from "@/components/shared";
 import type { FilterState } from "@/components/features/products/ProductFilters";
 import useAllProducts from "@/features/product/hooks/useAllProducts";
+import useFilterProducts from "@/features/product/hooks/useFilterProducts";
+import { ProductFilterCriteria } from "@/types/product.types";
 
 export default function ProductosPage() {
+  const [criterias, setCriterias] = useState<ProductFilterCriteria>()
+  // const { data: products, isLoading, isError, error, refetch } = useFilterProducts()
+
   const [currentPage, setCurrentPage] = useState(1);
+
+
+
   const [filters, setFilters] = useState<FilterState>({
     categories: [],
     priceRange: 50,
@@ -22,7 +30,7 @@ export default function ProductosPage() {
   const itemsPerPage = 9;
 
   // Obtener productos desde el hook
-  const { data: products, isLoading, isError, error, refetch } = useAllProducts();
+  const { data: products, isLoading, isError, error, refetch } = useAllProducts(criterias);
 
   // Filter products based on active filters
   const filteredProducts = products?.filter((product) => {
@@ -46,7 +54,7 @@ export default function ProductosPage() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sidebar - Hidden on mobile by default */}
         <aside className="lg:col-span-1 hidden lg:block">
-          <ProductFilters onFilterChange={setFilters} />
+          <ProductFilters setCriterias={setCriterias} onFilterChange={setFilters} />
         </aside>
 
         {/* Main Content */}

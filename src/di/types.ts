@@ -20,6 +20,7 @@ export const TYPES = {
   GetFeaturedProductsUseCase: Symbol.for('GetFeaturedProductsUseCase'),
   GetFilteredProductsUseCase: Symbol.for('GetFilteredProductsUseCase'),
   SearchProductsUseCase: Symbol.for('SearchProductsUseCase'),
+  FilterProductsUseCase: Symbol.for('FilterProductsUseCase'),
 
   // Use Cases - Cart
   AddToCartUseCase: Symbol.for('AddToCartUseCase'),
